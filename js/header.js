@@ -3,15 +3,15 @@ const headerHTML = `
   <div class="header-inner">
     <a href="/" class="logo" aria-label="Number Picker Home">
       <span class="logo-icon">🎯</span>
-      <span class="logo-text">NumberPicker<span class="logo-dot">.io</span></span>
+      <span class="logo-text">Number<span class="logo-dot">Picker</span></span>
     </a>
     <nav class="main-nav" aria-label="Main navigation">
       <ul>
-        <li><a href="#app">Spin Wheel</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#use-cases">Use Cases</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="/#app">Spin Wheel</a></li>
+        <li><a href="/#how-it-works">How It Works</a></li>
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#use-cases">Use Cases</a></li>
+        <li><a href="/#faq">FAQ</a></li>
       </ul>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
@@ -20,11 +20,11 @@ const headerHTML = `
   </div>
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <ul>
-      <li><a href="#app">Spin Wheel</a></li>
-      <li><a href="#how-it-works">How It Works</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#use-cases">Use Cases</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="/#app">Spin Wheel</a></li>
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#use-cases">Use Cases</a></li>
+      <li><a href="/#faq">FAQ</a></li>
     </ul>
   </div>
 </header>
