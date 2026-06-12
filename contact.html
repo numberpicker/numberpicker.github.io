@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Number Picker Wheel</title>
+  <meta name="description" content="Have questions or feature suggestions for Number Picker Wheel? Get in touch directly with our team." />
+  <link rel="canonical" href="https://numberpicker.github.io/contact.html" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      padding: 60px 0 100px;
+      align-items: start;
+    }
+    .contact-info-panel h2 {
+      margin-bottom: 16px;
+    }
+    .contact-info-panel p {
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .contact-method-card {
+      background: var(--cream);
+      border: 1px solid var(--cream-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-icon-bubble {
+      font-size: 1.8rem;
+      width: 56px;
+      height: 56px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+    .contact-method-card h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+    .contact-method-card a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+    .contact-form-box {
+      background: var(--white);
+      border: 1px solid var(--cream-border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-form-box h3 {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+    }
+    .contact-form-box textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--cream-border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color var(--transition);
+      resize: vertical;
+      min-height: 120px;
+    }
+    .contact-form-box textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header Placeholder -->
+<div id="header-placeholder"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════════════════ -->
+<section class="hero" style="padding: 60px 0 40px; text-align: center;">
+  <div class="container">
+    <div class="hero-badge">📬 Keep In Touch</div>
+    <h1>Contact Our Team</h1>
+    <p class="hero-sub" style="margin-bottom: 0; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Have a feature suggestion, partnership inquiry, or technical feedback? Drop us a line.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     CONTACT INTERFACE
+═══════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="contact-grid">
+    
+    <!-- Info Section -->
+    <div class="contact-info-panel">
+      <h2>Let's Talk!</h2>
+      <p>We read every piece of feedback we receive. If you are a teacher using this in a classroom or a gaming coordinator running a stream, we would love to hear how we can improve your user layout[cite: 1].</p>
+      
+      <div class="contact-method-card">
+        <div class="contact-icon-bubble" aria-hidden="true">✉️</div>
+        <div>
+          <h4>Direct Support Email</h4>
+          <a href="mailto:meraalshah447@gmail.com">meraalshah447@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interface Box -->
+    <div class="contact-form-box">
+      <h3>Send a Message</h3>
+      <!-- Standard form action setup linking to your contact email -->
+      <form action="https://formspree.io/f/xoq_____your_id_here" method="POST">
+        <div class="form-group">
+          <label for="c-name">Your Name</label>
+          <input type="text" id="c-name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="c-email">Your Email Address</label>
+          <input type="email" id="c-email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="c-msg">Message / Feedback</label>
+          <textarea id="c-msg" name="message" required placeholder="Tell us how we can improve our wheel tool..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; border-radius: var(--radius-sm); margin-top: 10px;">
+          🚀 Send Message
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer Placeholder -->
+<div id="footer-placeholder"></div>
+
+<!-- Scripts -->
+<script src="js/header.js" defer></script>
+<script src="js/footer.js" defer></script>
+
+</body>
+</html>
