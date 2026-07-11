@@ -399,3 +399,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
 }
+
+@media (max-width: 960px) {
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .hero-grid .picker-card {
+    order: -1;
+  }
+}
