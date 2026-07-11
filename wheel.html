@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2HPBSQEKFC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2HPBSQEKFC');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Number Picker Wheel — Spin the Random Number Wheel</title>
+  <meta name="description" content="Spin the Number Picker Wheel! A free, fair random number generator wheel. Pick a random number wheel for games, raffles, classrooms. No sign-up.">
+  <meta name="keywords" content="number picker wheel, random number picker wheel, number wheel, random number generator wheel, random number wheel, wheel of numbers, spin wheel, number picker">
+  <link rel="canonical" href="https://numberpicker.github.io/wheel">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Number Picker Wheel — Spin the Random Number Wheel">
+  <meta property="og:description" content="Interactive number picker wheel: set a range, spin, and get a fair random number. Perfect for raffles, games, classrooms.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://numberpicker.github.io/wheel">
+  <meta property="og:image" content="https://numberpicker.github.io/assets/og-wheel.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Number Picker Wheel — Spin & Pick Random Numbers">
+  <meta name="twitter:description" content="Free number picker wheel: crypto-fair, animated, mobile-friendly. Spin the wheel of numbers now.">
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --white: #ffffff;
+      --ink: #12141a;
+      --ink-soft: #4b5063;
+      --line: #e7e9f0;
+      --paper: #fafbff;
+      --blue: #2E5EFF;
+      --pink: #FF3D81;
+      --green: #22C55E;
+      --amber: #FF9F1C;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 16px;
+      --shadow-lg: 0 20px 50px -18px rgba(18,20,26,0.18);
+      --shadow-sm: 0 8px 20px -10px rgba(18,20,26,0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 20px 16px 60px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 8px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    p {
+      color: var(--ink-soft);
+      margin-bottom: 1rem;
+    }
+
+    .accent {
+      color: var(--blue);
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--blue);
+      text-transform: lowercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* ----- WHEEL CARD ----- */
+    .wheel-card {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 24px 20px 28px;
+      margin: 24px 0 32px;
+    }
+
+    .range-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .range-row label {
+      flex: 1;
+      min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+    }
+
+    .range-row input {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--line);
+      background: var(--paper);
+      width: 100%;
+      color: var(--ink);
+    }
+
+    .range-row input:focus {
+      outline: 2px solid var(--blue);
+      outline-offset: 1px;
+    }
+
+    .no-repeat-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .no-repeat-toggle input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    /* ----- CANVAS WHEEL ----- */
+    .wheel-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 10px auto 24px;
+      aspect-ratio: 1/1;
+      touch-action: none;
+    }
+
+    #wheelCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      background: var(--paper);
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12%;
+      z-index: 5;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    }
+
+    .wheel-pointer svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ----- SPIN BUTTON & HISTORY ----- */
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .pick-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+      min-width: 140px;
+    }
+
+    .pick-btn:hover {
+      transform: translateY(-2px);
+      background: var(--blue);
+    }
+
+    .pick-btn:active {
+      transform: translateY(0);
+    }
+
+    .pick-btn:disabled {
+      opacity: 0.6;
+      transform: none;
+      pointer-events: none;
+    }
+
+    .history-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-height: 40px;
+      padding-top: 16px;
+      border-top: 1.5px solid var(--line);
+      margin-top: 20px;
+    }
+
+    .history-chip {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 30px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      animation: chipIn 0.25s ease;
+    }
+
+    @keyframes chipIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .result-display {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
+      font-weight: 700;
+      text-align: center;
+      color: var(--blue);
+      margin: 10px 0 4px;
+      letter-spacing: -0.02em;
+      min-height: 5rem;
+    }
+
+    .subtext {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+
+    /* ----- FEATURES / FAQ (light) ----- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      margin: 24px 0 16px;
+    }
+
+    .feature-item {
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border: 1px solid var(--line);
+    }
+
+    .feature-item h3 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1.5px solid var(--line);
+      padding: 14px 0;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.02rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:after {
+      content: "+";
+      font-family: var(--font-mono);
+      color: var(--blue);
+      font-size: 1.4rem;
+      margin-left: 12px;
+      transition: transform 0.2s ease;
+    }
+    .faq-item[open] summary:after { transform: rotate(45deg); }
+    .faq-item p { margin-top: 8px; }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-family: var(--font-mono);
+      color: var(--blue);
+      border-bottom: 1.5px solid var(--blue);
+      padding-bottom: 2px;
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .wheel-card { padding: 16px; }
+      .range-row { gap: 8px; }
+      .range-row label { min-width: 70px; }
+      .pick-btn { padding: 14px 12px; font-size: 0.9rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+
+  <!-- Schema: WebApplication + FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Number Picker Wheel",
+    "url": "https://numberpicker.github.io/wheel",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Spin the number picker wheel to generate a random number. Fair, fast, and mobile-friendly. Perfect for raffles, games, and decisions.",
+    "featureList": ["Custom range", "Animated wheel", "No-repeat mode", "Pick history", "Crypto-secure"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is a number picker wheel?","acceptedAnswer":{"@type":"Answer","text":"A number picker wheel is a visual random number generator that spins a wheel of numbers and lands on a random value. It's used for games, raffles, classroom activities, and fair decision-making."}},
+      {"@type":"Question","name":"Is the random number wheel truly fair?","acceptedAnswer":{"@type":"Answer","text":"Yes, it uses cryptographic random values from your browser, giving every number an equal chance."}},
+      {"@type":"Question","name":"Can I use the number picker wheel on my phone?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. The wheel is fully responsive and works on all devices, including phones and tablets."}},
+      {"@type":"Question","name":"Can the wheel avoid repeating numbers?","acceptedAnswer":{"@type":"Answer","text":"Yes, enable 'no-repeat' mode and the wheel will not pick the same number twice until all numbers in the range have been used."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+<div class="container">
+  <!-- breadcrumb / nav -->
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-top:8px;">
+    <span class="eyebrow" style="margin:0;">🎡 number picker wheel</span>
+    <a href="/" style="font-family:var(--font-mono); font-size:0.8rem; color:var(--blue);">← main picker</a>
+  </div>
+
+  <h1><span class="accent">Number Picker Wheel</span> — Spin &amp; Decide</h1>
+  <p>Set your range, spin the <strong>random number wheel</strong>, and get a fair result. Perfect for raffles, games, classrooms, and any moment that needs a <strong>wheel of numbers</strong>.</p>
+
+  <!-- MAIN WHEEL CARD -->
+  <div class="wheel-card" id="wheelApp">
+    <div class="range-row">
+      <label>Min <input type="number" id="minInput" value="1" inputmode="numeric"></label>
+      <label>Max <input type="number" id="maxInput" value="100" inputmode="numeric"></label>
+    </div>
+
+    <label class="no-repeat-toggle">
+      <input type="checkbox" id="noRepeatCheck"> 
+      <span>No repeats (remove picked numbers)</span>
+    </label>
+
+    <div class="wheel-wrapper">
+      <canvas id="wheelCanvas" width="600" height="600"></canvas>
+      <div class="wheel-pointer" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><path d="M20 0 34 20 20 40 6 20Z" fill="#FF3D81" stroke="#fff" stroke-width="2"/></svg>
+      </div>
+    </div>
+
+    <div class="result-display" id="resultDisplay">?</div>
+    <div class="subtext" id="statusText">Tap the wheel or press Spin</div>
+
+    <div class="action-row">
+      <button class="pick-btn" id="spinBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z" fill="currentColor"/></svg>
+        Spin Wheel
+      </button>
+      <button class="pick-btn" id="resetBtn" style="background:var(--line); color:var(--ink); flex:0.5; min-width:80px;">
+        Reset
+      </button>
+    </div>
+
+    <div class="history-row" id="historyRow" aria-label="Recent picks"></div>
+  </div>
+
+  <!-- mini features -->
+  <div class="feature-grid">
+    <div class="feature-item"><h3>🎯 Fair &amp; random</h3><p>Crypto-secure RNG, not pseudo-random.</p></div>
+    <div class="feature-item"><h3>🔄 No-repeat mode</h3><p>Pick each number only once.</p></div>
+    <div class="feature-item"><h3>📱 Mobile ready</h3><p>Touch-friendly wheel for phones.</p></div>
+    <div class="feature-item"><h3>📋 History</h3><p>See your last picks.</p></div>
+  </div>
+
+  <!-- FAQ -->
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details class="faq-item" open>
+      <summary>What is a number picker wheel?</summary>
+      <p>A number picker wheel is a visual random number generator that spins a wheel with numbers around it. When you spin, the wheel slows down and stops on a random number. It’s a fun, transparent way to make a fair choice.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is the random number wheel truly random?</summary>
+      <p>Yes! It uses your browser's built-in cryptographic random API (<code>crypto.getRandomValues</code>), so each number in your range has an equal chance of being selected.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can I use the wheel on my phone?</summary>
+      <p>Absolutely. The wheel is designed to work with touch events — just tap or drag to spin, and it’s fully responsive for any screen size.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What does “no-repeat” do?</summary>
+      <p>When enabled, the wheel will not pick the same number twice until all numbers in the range have been used. Great for raffles or calling a list without replacement.</p>
+    </details>
+  </div>
+
+  <a href="/" class="back-link">← back to main random number picker</a>
+</div>
+
+  <div id="site-footer"></div>
+
+<script src="/js/header.js"></script>
+<script src="/js/footer.js"></script>
+
+<script>
+  (function() {
+    // ----- DOM refs -----
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    const minInput = document.getElementById('minInput');
+    const maxInput = document.getElementById('maxInput');
+    const noRepeatCheck = document.getElementById('noRepeatCheck');
+    const spinBtn = document.getElementById('spinBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultDisplay = document.getElementById('resultDisplay');
+    const statusText = document.getElementById('statusText');
+    const historyRow = document.getElementById('historyRow');
+
+    // ----- state -----
+    let currentMin = 1;
+    let currentMax = 100;
+    let availableNumbers = [];
+    let pickHistory = [];
+    let isSpinning = false;
+    let spinAngle = 0;          // current rotation (radians)
+    let targetAngle = 0;
+    let animationId = null;
+    let spinVelocity = 0;
+    const friction = 0.985;
+    const minVelocity = 0.002;
+    let segmentColors = [];
+
+    // ----- helpers -----
+    function buildNumberArray(min, max) {
+      const arr = [];
+      for (let i = min; i <= max; i++) arr.push(i);
+      return arr;
+    }
+
+    function resetState() {
+      const min = parseInt(minInput.value, 10) || 1;
+      const max = parseInt(maxInput.value, 10) || 100;
+      if (min > max) {
+        statusText.textContent = '⚠️ Min must be ≤ Max';
+        return;
+      }
+      currentMin = min;
+      currentMax = max;
+      availableNumbers = buildNumberArray(min, max);
+      pickHistory = [];
+      resultDisplay.textContent = '?';
+      statusText.textContent = 'Ready — spin the wheel!';
+      renderHistory();
+      drawWheel();
+      // reset spin angle smoothly
+      spinAngle = 0;
+      targetAngle = 0;
+      if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+      isSpinning = false;
+      spinBtn.disabled = false;
+    }
+
+    // ----- draw wheel -----
+    function drawWheel(rotation = 0) {
+      const w = canvas.width, h = canvas.height;
+      const cx = w/2, cy = h/2, radius = Math.min(w,h)*0.44;
+      ctx.clearRect(0, 0, w, h);
+
+      const count = availableNumbers.length;
+      if (count === 0) {
+        // draw empty state
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, 2*Math.PI);
+        ctx.fillStyle = '#eef0f5';
+        ctx.fill();
+        ctx.strokeStyle = '#ccc';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#4b5063';
+        ctx.font = 'bold 22px "Space Grotesk", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('all numbers used', cx, cy);
+        return;
+      }
+
+      const sliceAngle = (2 * Math.PI) / count;
+      // generate colors
+      if (segmentColors.length !== count) {
+        segmentColors = [];
+        const palette = ['#2E5EFF','#FF3D81','#22C55E','#FF9F1C','#A855F7','#EC4899','#14B8A6','#F97316'];
+        for (let i = 0; i < count; i++) {
+          segmentColors.push(palette[i % palette.length]);
+        }
+      }
+
+      for (let i = 0; i < count; i++) {
+        const start = i * sliceAngle + rotation;
+        const end = start + sliceAngle;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, start, end);
+        ctx.closePath();
+        ctx.fillStyle = segmentColors[i % segmentColors.length];
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // label
+        const mid = start + sliceAngle/2;
+        const labelRadius = radius * 0.72;
+        const x = cx + Math.cos(mid) * labelRadius;
+        const y = cy + Math.sin(mid) * labelRadius;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(mid + (mid > Math.PI/2 ? Math.PI : 0));
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold ' + (count > 60 ? '12px' : count > 30 ? '14px' : '18px') + ' "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const numStr = availableNumbers[i].toString();
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 6;
+        ctx.fillText(numStr, 0, 0);
+        ctx.shadowBlur = 0;
+        ctx.restore();
+      }
+
+      // center circle
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius * 0.16, 0, 2*Math.PI);
+      ctx.fillStyle = '#12141A';
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 20px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('GO', cx, cy+1);
+    }
+
+    // ----- pick random number -----
+    function pickNumber() {
+      if (availableNumbers.length === 0) {
+        statusText.textContent = '🎯 All numbers used! Reset to continue.';
+        resultDisplay.textContent = '⚡';
+        return null;
+      }
+      // crypto random index
+      const idx = Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / 0xffffffff * availableNumbers.length);
+      const picked = availableNumbers[idx];
+      if (noRepeatCheck.checked) {
+        availableNumbers.splice(idx, 1);
+      }
+      pickHistory.push(picked);
+      if (pickHistory.length > 20) pickHistory.shift();
+      return picked;
+    }
+
+    // ----- spin animation -----
+    function spinWheel() {
+      if (isSpinning) return;
+      if (availableNumbers.length === 0) {
+        statusText.textContent = '⚠️ No numbers left — Reset first.';
+        return;
+      }
+      // pick the result
+      const result = pickNumber();
+      if (result === null) return;
+      resultDisplay.textContent = result;
+      statusText.textContent = `🎉 landed on ${result}`;
+      renderHistory();
+
+      // determine target angle: random extra spins + align to slice
+      const count = availableNumbers.length > 0 ? availableNumbers.length : 1;
+      const sliceAngle = (2 * Math.PI) / count;
+      // find which slice index corresponds to result (if available)
+      let targetIdx = 0;
+      if (availableNumbers.length > 0) {
+        // we already removed the number if no-repeat, so find its position in history?
+        // easier: we just pick a random slice for visual
+        targetIdx = Math.floor(Math.random() * count);
+      } else {
+        targetIdx = 0;
+      }
+      // extra full rotations (3-6)
+      const extraSpins = 3 + Math.random() * 3;
+      const targetSlice = targetIdx * sliceAngle + sliceAngle/2;
+      // we want pointer at top ( -PI/2 )
+      const pointerOffset = -Math.PI/2;
+      let newAngle = spinAngle + extraSpins * 2 * Math.PI + (targetSlice - (spinAngle % (2*Math.PI)));
+      // make sure it's forward
+      while (newAngle <= spinAngle) newAngle += 2*Math.PI;
+      targetAngle = newAngle;
+
+      isSpinning = true;
+      spinBtn.disabled = true;
+      statusText.textContent = '🌀 spinning...';
+      if (animationId) cancelAnimationFrame(animationId);
+      animateSpin();
+    }
+
+    function animateSpin() {
+      const diff = targetAngle - spinAngle;
+      if (Math.abs(diff) < 0.003) {
+        spinAngle = targetAngle;
+        drawWheel(spinAngle);
+        isSpinning = false;
+        spinBtn.disabled = false;
+        statusText.textContent = `✅ done! ${resultDisplay.textContent}`;
+        animationId = null;
+        return;
+      }
+      // ease out
+      const speed = Math.max(0.02, diff * 0.035);
+      spinAngle += speed;
+      drawWheel(spinAngle);
+      animationId = requestAnimationFrame(animateSpin);
+    }
+
+    // ----- render history -----
+    function renderHistory() {
+      historyRow.innerHTML = pickHistory.map(n => `<span class="history-chip">${n}</span>`).join('');
+    }
+
+    // ----- reset -----
+    function handleReset() {
+      if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+      isSpinning = false;
+      spinBtn.disabled = false;
+      resetState();
+    }
+
+    // ----- event listeners -----
+    function init() {
+      resetState();
+
+      spinBtn.addEventListener('click', spinWheel);
+
+      resetBtn.addEventListener('click', handleReset);
+
+      // tap wheel to spin
+      canvas.addEventListener('click', (e) => {
+        if (!isSpinning) spinWheel();
+      });
+      canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (!isSpinning) spinWheel();
+      }, { passive: false });
+
+      // on range change, reset
+      minInput.addEventListener('change', handleReset);
+      maxInput.addEventListener('change', handleReset);
+      noRepeatCheck.addEventListener('change', () => {
+        // rebuild available from current range
+        const min = parseInt(minInput.value, 10) || 1;
+        const max = parseInt(maxInput.value, 10) || 100;
+        if (min > max) return;
+        availableNumbers = buildNumberArray(min, max);
+        pickHistory = [];
+        resultDisplay.textContent = '?';
+        statusText.textContent = 'No-repeat toggled, reset.';
+        renderHistory();
+        drawWheel();
+      });
+
+      // also reset on blur if values changed
+      minInput.addEventListener('blur', handleReset);
+      maxInput.addEventListener('blur', handleReset);
+
+      window.addEventListener('resize', () => { drawWheel(spinAngle); });
+    }
+
+    // wait for DOM
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+</body>
+</html>
